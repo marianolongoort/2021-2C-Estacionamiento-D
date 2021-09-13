@@ -20,7 +20,17 @@ namespace EstacionamientoMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            Persona persona1 = new Persona();
+            persona1.Nombre = "Pedro";
+            persona1.Apellido = "Picapiedra";
+
+            Persona persona2 = new Persona() { Nombre = "Pablo", Apellido = "Marmol" };
+
+            List<Persona> listaPersonas = new List<Persona>();
+            listaPersonas.Add(persona1);
+            listaPersonas.Add(persona2);
+
+            return View(listaPersonas);
         }
 
         public IActionResult Privacy()
@@ -35,3 +45,4 @@ namespace EstacionamientoMVC.Controllers
         }
     }
 }
+

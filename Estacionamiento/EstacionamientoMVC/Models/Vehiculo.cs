@@ -25,6 +25,6 @@ namespace EstacionamientoMVC.Models
         [Display(Name = Alias.Anio)]
         public int AnioFabricacion { get; set; } = DateTime.Now.Year;
 
-        public List<PersonaVehiculo> PersonasAutorizadas { get; set; }
+        public List<ClienteVehiculo> PersonasAutorizadas { get; set; }
     }
 }

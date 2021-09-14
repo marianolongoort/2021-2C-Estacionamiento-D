@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EstacionamientoMVC.Data;
 
 namespace EstacionamientoMVC
 {
@@ -23,6 +25,14 @@ namespace EstacionamientoMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<EstacionamientoContext>(options => 
+            //    options.UseSqlServer("server=(localdb)\\MSSQLLocalDB;database=EstacionamientoDB-D-Ej-2C;Trusted_Connection=true;")
+            //);
+            
+            services.AddDbContext<EstacionamientoContext>(options =>
+                options.UseInMemoryDatabase("EstacionamientoDb")
+            );
+
             services.AddControllersWithViews();
         }
 

@@ -11,6 +11,7 @@ namespace EstacionamientoMVC.Models
     {
         public int Id { get; set; }
 
+        
         [Required(ErrorMessage =ErrMsgs.Requerido)]
         [StringLength(Restrictions.CeilL3,MinimumLength =Restrictions.FloorL1,ErrorMessage =ErrMsgs.StrMaxMin)]
         public string Nombre { get; set; }

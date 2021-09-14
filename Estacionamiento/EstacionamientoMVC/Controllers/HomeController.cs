@@ -1,4 +1,5 @@
-﻿using EstacionamientoMVC.Models;
+﻿using EstacionamientoMVC.Data;
+using EstacionamientoMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,26 +12,43 @@ namespace EstacionamientoMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public EstacionamientoContext Bd { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(EstacionamientoContext context)
         {
-            _logger = logger;
+            Bd = context;
         }
+
 
         public IActionResult Index()
         {
-            Persona persona1 = new Persona();
-            persona1.Nombre = "Pedro";
-            persona1.Apellido = "Picapiedra";
+            if (!Bd.Personas.Any()) //si no hay personas
+            {
+                //las creo y agrego
+                Persona persona1 = new Persona();
+                persona1.Nombre = "Pedro";
+                persona1.Apellido = "Picapiedra";
 
-            Persona persona2 = new Persona() { Nombre = "Pablo", Apellido = "Marmol" };
+                Persona persona2 = new Persona() { Nombre = "Pablo", Apellido = "Marmol" };
 
-            List<Persona> listaPersonas = new List<Persona>();
-            listaPersonas.Add(persona1);
-            listaPersonas.Add(persona2);
+                //Estas dos personas, quiero pasarselas al ORM para que me las guarde
+                Bd.Personas.Add(persona1);//agrego una persona
+                Bd.Personas.Add(persona2);//agrego otra
+                Bd.SaveChanges(); //guardo en la base de datos realmente.
+            }
 
-            return View(listaPersonas);
+
+            List<Persona> personasEnDb = Bd.Personas.ToList();
+
+            //Genero otra persona. Supervisor
+
+            Persona supervisor = new Persona() { Nombre = "Vilma", Apellido = "Picapiedra" };
+            supervisor.DNI = 4;
+
+            ViewBag.Supervisor = supervisor;
+            
+
+            return View(personasEnDb);
         }
 
         public IActionResult Privacy()
@@ -38,11 +56,9 @@ namespace EstacionamientoMVC.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
+
+
+
 }
 

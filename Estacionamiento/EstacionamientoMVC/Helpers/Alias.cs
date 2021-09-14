@@ -11,6 +11,6 @@ namespace EstacionamientoMVC.Helpers
         public const string Email = "Correo electrónico";
         public const string PersonaId = "Persona";
         public const string Anio = "Año";
-        public const string NombreCompleto = "Nombre completo";
+        public const string NombreCompleto = "Nombre completo";        
     }
 }

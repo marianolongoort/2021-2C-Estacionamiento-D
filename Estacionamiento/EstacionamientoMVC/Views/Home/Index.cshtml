@@ -2,7 +2,12 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    Persona supervisor = ViewBag.Supervisor;
 }
+
+
+
+<p>El nombre del supervisor es: @supervisor.NombreCompleto</p>
 
 <table class="table table-striped table-dark">
     <thead>
@@ -14,7 +19,10 @@
                 @Html.DisplayNameFor(Model => Model.Apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(Model => Model.NombreCompleto)
+                @Html.DisplayNameFor(Model => Model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.DNI)
             </th>
         </tr>
     </thead>
@@ -30,6 +38,9 @@
             </td>
             <td>
                 @pers.NombreCompleto
+            </td>
+            <td>
+                @pers.DNI
             </td>
         </tr>
         }
